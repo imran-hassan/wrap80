@@ -1,5 +1,5 @@
 
-#1. Introduction
+#1. Introduction </br>
 
 The contrail BGP implementation was designed from scratch to run on modern </br> 
 server environments. The main goals were to be able to take advantage of </br> 
@@ -9,11 +9,11 @@ techniques. </br>
 BGP can be divided in the following components: </br>
 
 1. **Input processing**: decoding and validating messages received from each  </br>
-peer.
+peer. </br>
 2. **Routing table operations**: modifying the routing table and determining  </br>
-the set of updates to generate.
+the set of updates to generate. </br>
 3. **Update encoding**: draining the update queue and encoding messages to a </br> 
-set of peers.
+set of peers. </br>
 4. **Management operations**: configuration processing and diagnostics. </br>
 
 This blueprint provides a detailed description on defining a new origin field  </br>
@@ -24,7 +24,7 @@ by:
 3. Making changes in controller. </br>
 
 All of these steps are to be performed for the new functionality to work  </br>
-successfully.
+successfully. </br>
 
 #2. Problem statement </br>
 ###Normalize route origin when learning routes from a VM/VNF. </br>
@@ -39,7 +39,7 @@ route origin field of routes learned from vLB VNFs to a single value across  </b
 entire network so that differences in route origin value between different  </br>
 vLB instances won't contribute to route selection. </br>
 
-#3. Proposed solution
+#3. Proposed solution </br>
 Contrail by default exposes certain configurable options to the admin in  </br>
 management console which are eventually used by underlying service when  </br>
 making certain decisions or creating packets. In order to make origin field  </br>
@@ -84,19 +84,19 @@ impact of modifications in schema: </br>
 which is called by frontend to show appropriate bgp origin value. </br>
 
 + In ContrailConfigModel, add bgp_origin in defaultConfig which is present in  </br>
-this file: 
+this file:  </br>
 **webroot/config/services/bgpasaservice/ui/js/models/bgpAsAServiceModel.js**. </br>
 
 String value from frontend is converted into integer value to be sent to the  </br>
-backend.
+backend. </br>
 Then the value received at frontend is validated that whether it is 0, 1, 2  </br>
-or 3.3
+or 3.3 </br>
 
 + To add a new field on the GUI, the structure of a drop down menu is defined  </br>
-in 
+in  </br>
 **webroot/config/services/bgpasaservice/ui/js/views/bgpAsAServiceEditView.js**. </br>
  This enables different options i.e. IGP, BGP, ICOMPLETE and NONE to be  </br>
-visible in the drop down menu at Edit View on GUI.
+visible in the drop down menu at Edit View on GUI. </br>
 
 + To make the BGP origin value visible in the Grid View, changes are made in  </br>
 **webroot/config/services/bgpasaservice/ui/js/views/bgpAsAServiceGridView.js**. </br>
@@ -105,10 +105,10 @@ visible in the drop down menu at Edit View on GUI.
 changes in “this.bgpOrigunViewFormattter” function. </br>
 
 By making the above mentioned changes, the BGP Origin Field will become </br> 
-configurable in the UI.
+configurable in the UI. </br>
 On frontend, we get field of **BGP origin** in the tabs **Create**, **Edit**  </br>
 and **Grid view**. BGP origin field is also visible in the tab “BGP as a  </br>
-service.”
+service.” </br>
 
 ![alt text](images/sec_4.1.1_j.png "Img 10") </br>
 
@@ -121,7 +121,7 @@ text](https://github.com/saad-ngnware/test-repo/blob/master/images/sec_4.1.1_l.
 png "Img 12") </br>
 
 An object is passed from frontend to API Server when we create BGP as a  </br>
-service.
+service. </br>
 
 Details in contrail-controller repo README.md </br>
 
@@ -145,7 +145,7 @@ There are no dependencies for this feature. </br>
 ##9.1 Unit test </br>
 
 GUI unit test: Check if values are visible on frontend and are passed to the  </br>
-backend.
+backend. </br>
 
 ##9.2 Dev test </br>
 
